@@ -8,7 +8,7 @@ export const normalizeTree = (data) => {
     if (typeof d.children !== "undefined") {
       const children = [];
 
-      d.children.map((item) => {
+      d.children.forEach((item) => {
         if (parentId !== 0) {
           item.parent = parentId;
         }

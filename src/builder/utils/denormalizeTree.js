@@ -5,7 +5,7 @@ export const denormalizeTree = (data) => {
   const denormalizedData = clonedData.filter((item) => !item.parent);
 
   const run = (d, originalData) => {
-    d.map((item) => {
+    d.forEach((item) => {
       if (typeof item.children !== 'undefined') {
         const tmpItem = clone(item);
 
@@ -16,7 +16,7 @@ export const denormalizeTree = (data) => {
 
         item.children = [];
 
-        tmpItem.children.map((id) => {
+        tmpItem.children.forEach((id) => {
           const clonedChildrenData = clone(
             originalData.filter((oItem) => oItem.id === id)[0]
           );

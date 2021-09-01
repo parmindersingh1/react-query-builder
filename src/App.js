@@ -4,6 +4,8 @@ import * as React from "react";
 
 import { Builder, colors } from "./builder";
 
+import { normalizeTree } from "./builder/utils/normalizeTree";
+import { queryString } from "./builder/utils/queryString";
 import styled from "styled-components";
 
 const Code = styled.pre`
@@ -119,9 +121,7 @@ function App() {
   const [readOnly, setReadOnly] = React.useState(false);
   return (
     <>
-      <button onClick={() => setReadOnly(!readOnly)}>
-        Read Only
-      </button>
+      <button onClick={() => setReadOnly(!readOnly)}>Read Only</button>
       <Builder
         data={queryTree}
         fields={fields}
@@ -131,6 +131,41 @@ function App() {
 
       <h3>Output</h3>
       <Code>{JSON.stringify(output, null, 4)}</Code>
+      <Code>
+        {queryString(
+          //output
+          [
+            {
+              type: "GROUP",
+              value: "AND",
+              isNegated: true,
+              children: [
+                {
+                  field: "STATE",
+                  value: "CZ",
+                  operator: "EQUAL",
+                },
+                {
+                  type: "GROUP",
+                  value: "AND",
+                  isNegated: false,
+                  children: [
+                    {
+                      field: "IS_ACTIVE",
+                      value: true,
+                    },
+                    {
+                      field: "TEST_MULTI",
+                      value: ["LOREM", "IPSUM"],
+                      operator: "ALL_IN",
+                    },
+                  ],
+                },
+              ],
+            },
+          ]
+        )}
+      </Code>
     </>
   );
 }

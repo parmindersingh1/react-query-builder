@@ -27,5 +27,6 @@ export const strings = {
     NOT_BETWEEN: "Not between",
     LIKE: "Like",
     NOT_LIKE: "Not like",
+    NOT: "Not",
   },
 };

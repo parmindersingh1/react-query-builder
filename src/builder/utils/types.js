@@ -3,7 +3,7 @@ export const isBoolean = (value) => {
 };
 
 export const isString = (value) => {
-  return typeof value === "string";
+  return typeof value === "string" || value instanceof String;
 };
 
 export const isNumber = (value) => {
