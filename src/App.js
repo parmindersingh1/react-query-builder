@@ -35,6 +35,7 @@ export const fields = [
     field: "STATE",
     label: "State",
     type: "LIST",
+    fieldType: "value",
     operators: ["EQUAL", "NOT_EQUAL"],
     value: [
       { value: "CZ", label: "Czech Republic" },
@@ -46,6 +47,7 @@ export const fields = [
     field: "TEST_MULTI",
     label: "Test Multi",
     type: "MULTI_LIST",
+    fieldType: "value",
     operators: ["ALL_IN", "ANY_IN", "NOT_IN"],
     value: [
       { value: "LOREM", label: "Lorem" },
@@ -57,27 +59,32 @@ export const fields = [
     field: "IS_IN_EU",
     label: "Is in EU",
     type: "BOOLEAN",
+    fieldType: "value",
   },
   {
     field: "IS_IN_CZ",
     label: "Is in CZ",
     type: "BOOLEAN",
+    fieldType: "value",
   },
   {
     field: "IS_ACTIVE",
     label: "Is Active",
     type: "BOOLEAN",
+    fieldType: "value",
   },
   {
     field: "TEST_TEXT",
     label: "Test text",
     type: "TEXT",
+    fieldType: "value",
     operators: ["NOT_BETWEEN", "EQUAL", "NOT_EQUAL", "BETWEEN"],
   },
   {
     field: "TEST_NUMBER",
     label: "Test Number",
     type: "NUMBER",
+    fieldType: "value",
     operators: [
       "EQUAL",
       "NOT_EQUAL",
@@ -93,12 +100,14 @@ export const fields = [
     field: "TEST_DATE",
     label: "Test Date",
     type: "DATE",
+    fieldType: "value",
     operators: ["NOT_EQUAL", "NOT_BETWEEN"],
   },
   {
     field: "BLAH",
     label: "Blah",
     type: "TEXT",
+    fieldType: "value",
     operators: [
       "NOT_BETWEEN",
       "EQUAL",
@@ -112,6 +121,7 @@ export const fields = [
     field: "HAS_LOW_CREDIT",
     label: "Has low credits",
     type: "STATEMENT",
+    fieldType: "value",
     value: "HAS_DEBT() AND IS_IN_INSOLVENCY_REGISTER()",
   },
 ];
@@ -133,37 +143,37 @@ function App() {
       <Code>{JSON.stringify(output, null, 4)}</Code>
       <Code>
         {queryString(
-          //output
-          [
-            {
-              type: "GROUP",
-              value: "AND",
-              isNegated: true,
-              children: [
-                {
-                  field: "STATE",
-                  value: "CZ",
-                  operator: "EQUAL",
-                },
-                {
-                  type: "GROUP",
-                  value: "AND",
-                  isNegated: false,
-                  children: [
-                    {
-                      field: "IS_ACTIVE",
-                      value: true,
-                    },
-                    {
-                      field: "TEST_MULTI",
-                      value: ["LOREM", "IPSUM"],
-                      operator: "ALL_IN",
-                    },
-                  ],
-                },
-              ],
-            },
-          ]
+          output
+          // [
+          //   {
+          //     type: "GROUP",
+          //     value: "AND",
+          //     isNegated: true,
+          //     children: [
+          //       {
+          //         field: "STATE",
+          //         value: "CZ",
+          //         operator: "EQUAL",
+          //       },
+          //       {
+          //         type: "GROUP",
+          //         value: "AND",
+          //         isNegated: false,
+          //         children: [
+          //           {
+          //             field: "IS_ACTIVE",
+          //             value: true,
+          //           },
+          //           {
+          //             field: "TEST_MULTI",
+          //             value: ["LOREM", "IPSUM"],
+          //             operator: "ALL_IN",
+          //           },
+          //         ],
+          //       },
+          //     ],
+          //   },
+          // ]
         )}
       </Code>
     </>

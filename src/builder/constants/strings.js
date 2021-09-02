@@ -29,4 +29,13 @@ export const strings = {
     NOT_LIKE: "Not like",
     NOT: "Not",
   },
+  valueTypes: {
+    "value": "VALUE",
+    "field": "FIELD",
+    "function": "FUNCTION",
+  },
+  functionTypes: {
+    "lowercase": "LOWERCASE",
+    "uppercase": "UPPERCASE"
+  }
 };

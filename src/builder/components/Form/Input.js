@@ -15,6 +15,7 @@ export const Input = ({
   onChange,
   className,
   disabled = false,
+  placeholder
 }) => {
   const handleChange = (event) => {
     onChange(event.target.value);
@@ -27,6 +28,7 @@ export const Input = ({
       onChange={handleChange}
       className={className}
       disabled={disabled}
+      placeholder={placeholder}
     />
   );
 };

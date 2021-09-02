@@ -30,6 +30,7 @@ export const OperatorSelect = ({ values, selectedValue, id }) => {
       ) {
         clonedData[parentIndex].value =
           fields[fieldIndex].type === "NUMBER" ? ["0", "0"] : ["", ""];
+        clonedData[parentIndex].fieldType = "value";
       }
     }
 

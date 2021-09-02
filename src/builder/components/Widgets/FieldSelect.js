@@ -14,11 +14,17 @@ export const FieldSelect = ({ selectedValue, id }) => {
     const clonedData = clone(data);
     const parentIndex = clonedData.findIndex((item) => item.id === id);
     const nextField = fields.filter((item) => item.field === value)[0];
-
+  
     clonedData[parentIndex].field = value;
     delete clonedData[parentIndex].value;
     delete clonedData[parentIndex].operators;
     delete clonedData[parentIndex].operator;
+
+    if (nextField.operators) {
+      if(["BETWEEN", "NOT_BETWEEN"].includes(nextField.operators[0])) {
+        clonedData[parentIndex].fieldType = "value";
+      }
+    }
 
     switch (nextField.type) {
       case "BOOLEAN":
@@ -82,6 +88,7 @@ export const FieldSelect = ({ selectedValue, id }) => {
         break;
       case "STATEMENT":
         clonedData[parentIndex].value = nextField.value;
+        clonedData[parentIndex].fieldType = "value";
         break;
 
       default:

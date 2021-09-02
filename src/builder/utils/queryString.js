@@ -20,11 +20,11 @@ export const queryString = (data) => {
 
   const wrapBrackets = (stringData) => {
     return `( ${stringData} )`;
-  }
+  };
 
   const wrapQuotes = (stringData) => {
     return `'${stringData}'`;
-  }
+  };
 
   const runChild = (child) => {
     const field = [];
@@ -36,11 +36,31 @@ export const queryString = (data) => {
       field.push(strings.operators.EQUAL.toUpperCase());
     }
 
+    if (child.functionType) {
+      field.push(child.functionType);
+    }
+
     if (typeof child.value !== "undefined") {
       if (Array.isArray(child.value)) {
-        field.push(wrapBrackets(child.value.map(val => isString(val) ? wrapQuotes(val) : val).join(", ")))
+        field.push(
+          wrapBrackets(
+            child.value
+              .map((val) => (isString(val) ? wrapQuotes(val) : val))
+              .join(", ")
+          )
+        );
       } else {
-        field.push(isString(child.value)? wrapQuotes(child.value) : child.value);
+        field.push(
+          (child.fieldType.toUpperCase() === strings.valueTypes.value ||
+            child.fieldType.toUpperCase() === strings.valueTypes.function) &&
+            isString(child.value)
+            ? child.functionType
+              ? wrapBrackets(wrapQuotes(child.value))
+              : wrapQuotes(child.value)
+            : child.functionType
+            ? wrapBrackets(child.value)
+            : child.value
+        );
       }
     }
     return field.join(" ");

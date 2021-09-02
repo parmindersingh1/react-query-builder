@@ -60,6 +60,8 @@ export const Group = ({ value, isNegated, children, id, isRoot }) => {
       field: "",
       id: uniqid(),
       parent: id,
+      fieldType: "value",
+      functionType: ""
     };
 
     addItem(EmptyRule);

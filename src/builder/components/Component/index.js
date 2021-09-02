@@ -10,10 +10,13 @@ import {
 import { Boolean } from "../Widgets/Boolean";
 import { BuilderContext } from "../Context";
 import { FieldSelect } from "../Widgets/FieldSelect";
+import { FieldTypeSelect } from "../Widgets/FieldTypeSelect";
+import { FunctionSelect } from "../Widgets/FunctionSelect";
 import { Input } from "../Widgets/Input";
 import { OperatorSelect } from "../Widgets/OperatorSelect";
 import { Select } from "../Widgets/Select";
 import { SelectMulti } from "../Widgets/SelectMulti";
+import { ValueTypeSelect } from "../Widgets/ValueTypeSelect";
 import { clone } from "../../utils/clone";
 import styled from "styled-components";
 
@@ -26,6 +29,8 @@ export const Component = ({
   value: selectedValue,
   operator,
   id,
+  fieldType: selectedFieldType,
+  functionType: selectedFunctionType,
 }) => {
   const { fields, data, setData, onChange, components, strings, readOnly } =
     useContext(BuilderContext);
@@ -67,6 +72,7 @@ export const Component = ({
           field,
           operators,
           type,
+          fieldType,
           value: fieldValue,
         } = fields[fieldIndex];
 
@@ -76,6 +82,13 @@ export const Component = ({
             value: item,
             label: strings.operators && strings.operators[item],
           }));
+
+        const valueTypeOptionList = Object.keys(strings.valueTypes).map(
+          (item) => ({
+            value: item,
+            label: strings.valueTypes[item],
+          })
+        );
 
         return (
           <ComponentContainer
@@ -107,11 +120,39 @@ export const Component = ({
                     selectedValue={operator}
                   />
                   {operator && (
-                    <Select
-                      id={id}
-                      selectedValue={selectedValue}
-                      values={fieldValue}
-                    />
+                    <>
+                      <ValueTypeSelect
+                        id={id}
+                        selectedValue={selectedFieldType}
+                        values={valueTypeOptionList}
+                        field={field}
+                      />
+                      {selectedFieldType.toUpperCase() ===
+                        strings.valueTypes.value && (
+                        <Select
+                          id={id}
+                          selectedValue={selectedValue}
+                          values={fieldValue}
+                        />
+                      )}
+                      {selectedFieldType.toUpperCase() ===
+                        strings.valueTypes.field && (
+                        <FieldTypeSelect
+                          selectedValue={selectedValue}
+                          id={id}
+                        />
+                      )}
+                      {selectedFieldType.toUpperCase() ===
+                        strings.valueTypes.function && (
+                        <>
+                          <FunctionSelect
+                            selectedValue={selectedFunctionType}
+                            id={id}
+                          />
+                          <Input type="text" value={selectedValue} id={id} />
+                        </>
+                      )}
+                    </>
                   )}
                 </>
               )}
@@ -146,7 +187,40 @@ export const Component = ({
                     selectedValue={operator}
                   />
                   {operator && (
-                    <Input type="text" value={selectedValue} id={id} />
+                    <>
+                      <ValueTypeSelect
+                        id={id}
+                        selectedValue={selectedFieldType}
+                        values={valueTypeOptionList}
+                        field={field}
+                        disabled={
+                          ["BETWEEN", "NOT_BETWEEN"].includes(operator)
+                            ? true
+                            : false
+                        }
+                      />
+                      {selectedFieldType.toUpperCase() ===
+                        strings.valueTypes.value && (
+                        <Input type="text" value={selectedValue} id={id} />
+                      )}
+                      {selectedFieldType.toUpperCase() ===
+                        strings.valueTypes.field && (
+                        <FieldTypeSelect
+                          selectedValue={selectedValue}
+                          id={id}
+                        />
+                      )}
+                      {selectedFieldType.toUpperCase() ===
+                        strings.valueTypes.function && (
+                        <>
+                          <FunctionSelect
+                            selectedValue={selectedFunctionType}
+                            id={id}
+                          />
+                          <Input type="text" value={selectedValue} id={id} />
+                        </>
+                      )}
+                    </>
                   )}
                 </>
               )}
@@ -161,7 +235,40 @@ export const Component = ({
                     selectedValue={operator}
                   />
                   {operator && (
-                    <Input type="number" value={selectedValue} id={id} />
+                    <>
+                      <ValueTypeSelect
+                        id={id}
+                        selectedValue={selectedFieldType}
+                        values={valueTypeOptionList}
+                        field={field}
+                        disabled={
+                          ["BETWEEN", "NOT_BETWEEN"].includes(operator)
+                            ? true
+                            : false
+                        }
+                      />
+                      {selectedFieldType.toUpperCase() ===
+                        strings.valueTypes.value && (
+                        <Input type="number" value={selectedValue} id={id} />
+                      )}
+                      {selectedFieldType.toUpperCase() ===
+                        strings.valueTypes.field && (
+                        <FieldTypeSelect
+                          selectedValue={selectedValue}
+                          id={id}
+                        />
+                      )}
+                      {selectedFieldType.toUpperCase() ===
+                        strings.valueTypes.function && (
+                        <>
+                          <FunctionSelect
+                            selectedValue={selectedFunctionType}
+                            id={id}
+                          />
+                          <Input type="number" value={selectedValue} id={id} />
+                        </>
+                      )}
+                    </>
                   )}
                 </>
               )}

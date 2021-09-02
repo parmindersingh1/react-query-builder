@@ -33,12 +33,14 @@ export const Input = ({ type, value, id }) => {
             value={value[0]}
             onChange={(changedValue) => handleChange(changedValue, 0)}
             disabled={readOnly}
+            placeholder="from"
           />
           <form.Input
             type={type}
             value={value[1]}
             onChange={(changedValue) => handleChange(changedValue, 1)}
             disabled={readOnly}
+            placeholder="to"
           />
         </>
       );

@@ -34,13 +34,15 @@ export const Iterator = ({ originalData, filteredData, isRoot = true }) => (
 
         return null;
       } else {
-        const { field, value, id, operator } = item;
+        const { field, value, id, operator, fieldType, functionType } = item;
 
         return (
           <Component
             key={id}
             field={field}
             value={value}
+            fieldType={fieldType}
+            functionType={functionType}
             operator={operator}
             id={id}
             data-test="IteratorComponent"
